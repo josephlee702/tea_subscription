@@ -1,14 +1,14 @@
 require 'rails_helper'
 		
-describe "Subscription Request API Happy Path", :vcr do
+describe "Tea Subscription Request API Happy Path" do
   it "subscribes a customer to a tea subscription" do
-    customer = Customer.create(name: "Joseph Lee", email: "josephlee@gmail.com")
+    customer = Customer.create(first_name: "Joseph", last_name: "Lee", email: "josephlee@gmail.com", address: "123 Test St, CO 80234")
 
-    get "/api/v0/subscribe"
-    
+    post "/api/v0/subscribe"
+
     require 'pry'; binding.pry
 
     expect(response).to be_successful
-    expect(response.status).to eq(200)
+    expect(response.status).to eq(201)
   end
 end

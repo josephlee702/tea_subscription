@@ -46,7 +46,7 @@ group :development, :test do
   gem "capybara"
   gem "simplecov"
   gem "launchy"
-  gem 'shoulda-matchers', '~> 6.0'
+  gem 'shoulda-matchers'
   gem "factory_bot_rails"
   gem "faker"
   gem "webmock"

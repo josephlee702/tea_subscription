@@ -1,6 +1,6 @@
-class CreateSubscriptionsTeas < ActiveRecord::Migration[7.1]
+class CreateSubscriptionTeas < ActiveRecord::Migration[7.1]
   def change
-    create_table :subscriptions_teas do |t|
+    create_table :subscription_teas do |t|
       t.references :tea, null: false, foreign_key: true
       t.references :subscription, null: false, foreign_key: true
 

@@ -22,7 +22,12 @@ describe "Tea Subscription Request API Happy Path" do
       subscription_id: subscription.id
     }
 
+    json_response = JSON.parse(response.body, symbolize_names: true)
+
     expect(response).to be_successful
     expect(response.status).to eq(201)
+
+    expect(json_response[:status]).to eq("success")
+    expect(json_response[:message]).to eq("Customer subscribed successfully.")
   end
 end

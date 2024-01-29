@@ -57,4 +57,14 @@ RSpec.describe "the customer subscriptions show" do
     expect(parsed_json2.second[:subscription_id]).to eq(subscription2.id)
     expect(parsed_json2.second[:status]).to eq("cancelled")
   end
+
+  it "returns correct response when customer does not have any subscriptions" do
+    customer = Customer.create(first_name: "Joseph", last_name: "Lee", email: "josephlee@gmail.com", address: "123 Test St, CO 80234")
+
+    get "/api/v0/#{customer.id}/subs"
+
+    parsed_json = JSON.parse(response.body, symbolize_names: true)
+    expect(parsed_json[:status]).to eq(200)
+    expect(parsed_json[:message]).to eq("Customer does not have any subscriptions.")
+  end
 end

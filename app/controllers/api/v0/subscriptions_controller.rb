@@ -21,7 +21,7 @@ class Api::V0::SubscriptionsController < ApplicationController
     elsif record && record.status = "cancelled"
       render json: { status: "unsuccessful", message: "The subscription is already cancelled." }, status: 200
     else
-      "The cancellation was not successful."
+      render json: {status: "unsuccessful", message: "The cancellation was not successful."}, status: 400
     end
   end
 end

@@ -1,9 +1,6 @@
 class Api::V0::SubscriptionsController < ApplicationController
   def create
-    subscription = Subscription.find_by(id: params[:subscription_id])
-    customer = Customer.find_by(id: params[:customer_id])
-
-    new_subscription_customer = SubscriptionCustomer.create(subscription_id: subscription.id, customer_id: customer.id, status: "active")
+    new_subscription_customer = SubscriptionService.create_subscription(params[:subscription_id], params[:customer_id])
 
     if new_subscription_customer
       render json: { status: "success", message: "Customer subscribed successfully." }, status: 201
@@ -13,12 +10,11 @@ class Api::V0::SubscriptionsController < ApplicationController
   end
 
   def cancel
-    record = SubscriptionCustomer.find_by(id: params[:subscription_customer])
-    if record && record.status = "active"
-      record.update(status: "cancelled")
+    service_response = SubscriptionService.cancel_subscription(params[:subscription_customer])
 
+    if service_response.status == "cancelled"
       render json: { status: "success", message: "Subscription was successfully cancelled." }, status: 200
-    elsif record && record.status = "cancelled"
+    elsif service_response == "Already cancelled"
       render json: { status: "unsuccessful", message: "The subscription is already cancelled." }, status: 200
     else
       render json: {status: "unsuccessful", message: "The cancellation was not successful."}, status: 400

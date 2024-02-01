@@ -14,8 +14,4 @@ class SubscriptionService
     else
     end
   end
-
-  def self.see_all_subscriptions
-
-  end
 end
